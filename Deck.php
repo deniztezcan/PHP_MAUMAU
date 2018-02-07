@@ -104,10 +104,22 @@ class Deck
 		$this->cards = array_values($this->cards);
 	}	
 
-	public function dealCard(){
+	public function dealCard()
+	{
 		$cardInHand = $this->cards[0];
 		$this->removeFromDeck(0);
 		return $cardInHand;
+	}
+
+	public function isEmpty()
+	{
+		if($this->count() == 0)
+		{
+			return true;
+		}else
+		{
+			return false;
+		}
 	}
 	
 }

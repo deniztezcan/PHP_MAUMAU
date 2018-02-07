@@ -59,10 +59,4 @@ class Player
 		return $this->hand;
 	}
 
-	public function getTopCard()
-	{
-		$count = count($this->hand);
-		return $this->hand[$count-1];
-	}
-
 }

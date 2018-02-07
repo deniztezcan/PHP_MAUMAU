@@ -17,7 +17,8 @@ class Application
 	private $deck;
 	private $players;
 	private $stack;
-	private $status;
+	private $gameFinished;
+	private $losers;
 
 	public function __construct()
 	{
@@ -25,6 +26,7 @@ class Application
 		$this->initializePlayers();
 		$this->initializeStack();
 		$this->initializeStatus();
+		$this->initializeLosers();
 	}
 
 	private function initializeDeck()
@@ -42,6 +44,21 @@ class Application
 		$this->players[] = new Player('de Gaulle');
 	}
 
+	private function initializeStack()
+	{
+		$this->stack = new Stack();
+	}
+
+	private function initializeStatus()
+	{
+		$this->gameFinished = false;
+	}
+
+	private function initializeLosers()
+	{
+		$this->losers = array();
+	}
+
 	private function listPlayers()
 	{
 		$returnString = "Starting game with";
@@ -55,16 +72,6 @@ class Application
 
 		return $returnString;
 
-	}
-
-	private function initializeStack()
-	{
-		$this->stack = new Stack();
-	}
-
-	private function initializeStatus()
-	{
-		$this->status = false;
 	}
 
 	private function initialDealing()
@@ -93,6 +100,50 @@ class Application
 			$returnString.= "<br>";
 		}
 		return $returnString;
+	}
+
+	private function listWinner(
+		$player
+	){
+		return $player->getName()." has won.";	
+	}
+
+	private function setGameFinished(
+		$newStatus
+	){
+		$this->gameFinished = $newStatus;
+	}
+
+	private function setLoser(
+		$player
+	){
+		if($this->countLosers() == 0)
+		{
+			$this->losers[] = $player;
+			return;
+		}else
+		{
+			foreach ($this->losers as $losingPlayer) {
+				if($losingPlayer == $player)
+				{
+					return;
+				}else
+				{
+					$this->losers[] = $player;
+					return;
+				}
+			}
+		}
+	}
+
+	private function countLosers()
+	{
+		return count($this->losers);
+	}
+
+	private function countPlayers()
+	{
+		return count($this->players);
 	}
 
 	private function canPlay(
@@ -127,9 +178,25 @@ class Application
 		if(
 			!$canPlay
 		){	
-			$newCard = $this->deck->dealCard();
-			$this->players[$index]->addToHand($newCard);
-			echo $player->getName()." does not have a suitable card. taking from deck ".$newCard->getCard()."<br>";
+			if(!$this->deck->isEmpty())
+			{
+				$newCard = $this->deck->dealCard();
+				$this->players[$index]->addToHand($newCard);
+				echo $player->getName()." does not have a suitable card. taking from deck ".$newCard->getCard()."<br>";
+			}else
+			{
+				if($this->countLosers() == $this->countPlayers())
+				{
+					echo "No cards left in deck. There is no winner :(<br>";
+					$this->setGameFinished(true);
+					return;
+				}else
+				{
+					$this->setLoser($player);
+					echo $player->getName()." does not have a suitable card. Deck is empty - skipping turn<br>";
+					return;
+				}
+			}	
 		}else
 		{
 			$this->stack->addToStack($canPlay['card']);
@@ -141,15 +208,15 @@ class Application
 
 	private function restOfGame()
 	{
-		while(!$this->status){
+		while(!$this->gameFinished){
 			foreach ($this->players as $index => $player) {
 				if($player->countHand() > 0) {
 					$this->play($index, $player);
 					if($player->countHand() == 0) 
 					{
-						echo $player->getName()." has won.";	
-						$this->status = true;
-						break;
+						echo $this->listWinner($player);
+						$this->setGameFinished(true);
+						return;
 					}
 				}
 			}
