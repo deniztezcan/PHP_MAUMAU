@@ -189,7 +189,7 @@ class Application
 				{
 					echo "No cards left in deck. There is no winner :(<br>";
 					$this->setGameFinished(true);
-					return;
+					exit;
 				}else
 				{
 					$this->setLoser($player);
@@ -216,7 +216,7 @@ class Application
 					{
 						echo $this->listWinner($player);
 						$this->setGameFinished(true);
-						return;
+						exit;
 					}
 				}
 			}
