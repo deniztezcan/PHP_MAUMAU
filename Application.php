@@ -123,17 +123,33 @@ class Application
 			return;
 		}else
 		{
-			foreach ($this->losers as $losingPlayer) {
+			$foundPlayer = false;
+
+			foreach ($this->losers as $losingPlayer)
+			{				
+
 				if($losingPlayer == $player)
 				{
-					return;
-				}else
-				{
-					$this->losers[] = $player;
-					return;
+					$foundPlayer = true;
 				}
+
 			}
+
+			if($foundPlayer)
+			{
+				return;
+			}else
+			{
+				$this->losers[] = $player;
+				return;
+			}
+
 		}
+	}
+
+	private function removeLosers()
+	{
+		$this->initializeLosers();
 	}
 
 	private function countLosers()
@@ -201,6 +217,7 @@ class Application
 		{
 			$this->stack->addToStack($canPlay['card']);
 			$player->removeFromHand($canPlay['index']);
+			$this->removeLosers();
 			echo $player->getName()." plays ".$canPlay['card']->getCard()."<br>";
 		}
 
