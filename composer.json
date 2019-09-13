@@ -1,0 +1,21 @@
+{
+    "name": "deniztezcan/php-maumau",
+    "description": "A non-interactive PHP version of the game mau mau (pesten)",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Deniz Tezcan",
+            "email": "howdy@deniztezcan.me"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-4": { 
+            "DenizTezcan\\MauMau\\" : "src/"
+        }
+    }
+}
