@@ -52,13 +52,13 @@ class Game
     		new Player('Churchill'),
     		new Player('Stalin'),
     		new Player('Roosevelt'),
-    		new Player('Roosevelt')
+    		new Player('de Gaulle')
     	]);
     	$this->stack = new Stack();
     }
 
     public function run()
     {
-    	
+
     }
 }
