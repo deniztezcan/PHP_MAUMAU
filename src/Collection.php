@@ -97,7 +97,6 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function remove($key): void
     {
         unset($this->attributes[$key]);
-        $this->attributes = array_values($this->attributes);
     }
 
     /**
@@ -210,6 +209,6 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      */
     public function isEmpty(): bool
     {
-        return (bool) $this->count();
+        return ((bool) $this->count() ? false : true );
     }
 }

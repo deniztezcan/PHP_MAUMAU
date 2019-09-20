@@ -65,7 +65,15 @@ class Deck extends Collection
      */
     public function shuffle(): void
     {
-    	shuffle($this->attributes);
+    	$keys = array_keys($this->attributes); 
+		shuffle($keys); 
+		$random = array(); 
+		
+		foreach ($keys as $key) { 
+			$random[$key] = $this->attributes[$key]; 
+		}
+		
+		$this->attributes = $random; 
     }
 
 	/**
@@ -76,7 +84,7 @@ class Deck extends Collection
 	public function deal(): object
 	{
 		$card = reset($this->attributes);
-		$this->remove(key($card));
+		$this->remove($card->getKey());
 		return $card;	
 	}
 

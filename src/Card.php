@@ -45,8 +45,7 @@ class Card
      */
     public function suit($suit = null)
     {
-        if(null !== $suit)
-        {
+        if (null !== $suit) {
             $this->suit = $suit;
             return $this;
         }
@@ -62,8 +61,7 @@ class Card
      */
     public function value($value = null)
     {
-        if(null !== $value)
-        {
+        if (null !== $value) {
             $this->value = $value;
             return $this;
         }

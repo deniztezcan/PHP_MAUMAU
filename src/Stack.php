@@ -64,7 +64,7 @@ class Stack
      */
     public function displayTopCard(): string
     {
-        return "Top cards is: " . $this->getTopCard()->display();
+        return "Top cards is: " . $this->getTopCard()->display() . "<br>";
     }
 
 }

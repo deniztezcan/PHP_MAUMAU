@@ -47,8 +47,7 @@ class Player
      */
     public function name($name = null)
     {
-    	if(null === $name)
-    	{
+    	if (null !== $name) {
     		$this->name = $name;
     		return $this;
     	}
@@ -96,5 +95,15 @@ class Player
     public function removeFromHand($card): void
     {
     	$this->hand->remove($card->getKey());
+    }
+
+    /**
+     * Checks if hand is empty
+     *
+     * @return bool
+     */
+    public function handIsEmpty(): bool
+    {
+        return ((bool) $this->countHand() ? false : true );
     }
 }
