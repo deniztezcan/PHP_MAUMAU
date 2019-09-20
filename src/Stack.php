@@ -4,41 +4,42 @@ namespace DenizTezcan\MauMau;
 
 class Stack
 {
-	/**
-     * Class properties
+    /**
+     * Class properties.
      */
 
-	/**
-     * Array of Cards in stack
+    /**
+     * Array of Cards in stack.
      *
-     * @type Array
+     * @var array
      */
     protected $cards = [];
 
     /**
-     * Methods
+     * Methods.
      */
+
     /**
-     * Constructor
-     *
+     * Constructor.
      */
     public function __construct()
     {
     }
 
     /**
-    * Add a card to the Deck
-    *
-    * @param  Card
-    * @return void
-    */
+     * Add a card to the Deck.
+     *
+     * @param  Card
+     *
+     * @return void
+     */
     public function add(Card $card): void
     {
         $this->cards[] = $card;
     }
 
     /**
-     * Count the cards via a simple "count" call
+     * Count the cards via a simple "count" call.
      *
      * @return int
      */
@@ -47,24 +48,23 @@ class Stack
         return count($this->cards);
     }
 
-     /**
-     * Returns the card on the top of the stack
+    /**
+     * Returns the card on the top of the stack.
      *
      * @return Card
      */
     public function getTopCard(): object
     {
-        return $this->cards[$this->count()-1];
+        return $this->cards[$this->count() - 1];
     }
 
     /**
-     * Displays the card on the top of the stack
+     * Displays the card on the top of the stack.
      *
      * @return string
      */
     public function displayTopCard(): string
     {
-        return "Top cards is: " . $this->getTopCard()->display() . "<br>";
+        return 'Top cards is: '.$this->getTopCard()->display().'<br>';
     }
-
 }

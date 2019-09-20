@@ -9,21 +9,22 @@ use IteratorAggregate;
 
 class Collection implements IteratorAggregate, ArrayAccess, Countable
 {
-	/**
-     * Class properties
+    /**
+     * Class properties.
      */
     /**
-     * Collection of data attributes
+     * Collection of data attributes.
      *
-     * @type array
+     * @var array
      */
     protected $attributes = [];
 
     /**
-     * Methods
+     * Methods.
      */
+
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $attributes The data attributes of this collection
      */
@@ -33,7 +34,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Returns all of the attributes in the collection
+     * Returns all of the attributes in the collection.
      *
      * If an optional mask array is passed, this only
      * returns the keys that match the mask
@@ -42,16 +43,17 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      */
     public function all(): array
     {
-    	return $this->attributes;
+        return $this->attributes;
     }
 
     /**
-     * Return an attribute of the collection
+     * Return an attribute of the collection.
      *
      * Return a default value if the key doesn't exist
      *
-     * @param string $key           The name of the parameter to return
-     * @param mixed  $default_val   The default value of the parameter if it contains no value
+     * @param string $key         The name of the parameter to return
+     * @param mixed  $default_val The default value of the parameter if it contains no value
+     *
      * @return mixed
      */
     public function get($key, $default_val = null)
@@ -64,23 +66,26 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Set an attribute of the collection
+     * Set an attribute of the collection.
      *
      * @param string $key   The name of the parameter to set
      * @param mixed  $value The value of the parameter to set
+     *
      * @return Collection
      */
     public function set($key, $value): object
     {
         $this->attributes[$key] = $value;
+
         return $this;
     }
 
     /**
-     * See if an attribute exists in the collection
+     * See if an attribute exists in the collection.
      *
-     * @param string $key   The name of the parameter
-     * @return boolean
+     * @param string $key The name of the parameter
+     *
+     * @return bool
      */
     public function exists($key): bool
     {
@@ -89,9 +94,10 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Remove an attribute from the collection
+     * Remove an attribute from the collection.
      *
-     * @param string $key   The name of the parameter
+     * @param string $key The name of the parameter
+     *
      * @return void
      */
     public function remove($key): void
@@ -100,101 +106,112 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Clear the collection's contents
+     * Clear the collection's contents.
      *
      * @return Collection
      */
     public function clear(): object
     {
-    	$this->attributes = [];
+        $this->attributes = [];
+
         return $this;
     }
 
     /*
      * Interface required method implementations
      */
-    
+
     /**
-     * Get the aggregate iterator
+     * Get the aggregate iterator.
      *
      * IteratorAggregate interface required method
      *
      * @see \IteratorAggregate::getIterator()
+     *
      * @return ArrayIterator
      */
     public function getIterator(): object
     {
         return new ArrayIterator($this->attributes);
     }
-    
+
     /**
-     * Get an attribute via array syntax
+     * Get an attribute via array syntax.
      *
      * Allows the access of attributes of this instance while treating it like an array
      *
      * @see \ArrayAccess::offsetGet()
      * @see get()
-     * @param string $key   The name of the parameter to return
+     *
+     * @param string $key The name of the parameter to return
+     *
      * @return mixed
      */
     public function offsetGet($key): mixed
     {
         return $this->get($key);
     }
-    
+
     /**
-     * Set an attribute via array syntax
+     * Set an attribute via array syntax.
      *
      * Allows the access of attributes of this instance while treating it like an array
      *
      * @see \ArrayAccess::offsetSet()
      * @see set()
+     *
      * @param string $key   The name of the parameter to set
      * @param mixed  $value The value of the parameter to set
+     *
      * @return void
      */
     public function offsetSet($key, $value): void
     {
         $this->set($key, $value);
     }
-    
+
     /**
-     * Check existence an attribute via array syntax
+     * Check existence an attribute via array syntax.
      *
      * Allows the access of attributes of this instance while treating it like an array
      *
      * @see \ArrayAccess::offsetExists()
      * @see exists()
-     * @param string $key   The name of the parameter
-     * @return boolean
+     *
+     * @param string $key The name of the parameter
+     *
+     * @return bool
      */
     public function offsetExists($key): bool
     {
         return $this->exists($key);
     }
-    
+
     /**
-     * Remove an attribute via array syntax
+     * Remove an attribute via array syntax.
      *
      * Allows the access of attributes of this instance while treating it like an array
      *
      * @see \ArrayAccess::offsetUnset()
      * @see remove()
-     * @param string $key   The name of the parameter
+     *
+     * @param string $key The name of the parameter
+     *
      * @return void
      */
     public function offsetUnset($key): void
     {
         $this->remove($key);
     }
-    
+
     /**
-     * Count the attributes via a simple "count" call
+     * Count the attributes via a simple "count" call.
      *
      * Allows the use of the "count" function (or any internal counters)
      * to simply count the number of attributes in the collection.
      *
      * @see \Countable::count()
+     *
      * @return int
      */
     public function count(): int
@@ -203,12 +220,12 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Checks if attributes are set
+     * Checks if attributes are set.
      *
      * @return bool
      */
     public function isEmpty(): bool
     {
-        return ((bool) $this->count() ? false : true );
+        return (bool) $this->count() ? false : true;
     }
 }
