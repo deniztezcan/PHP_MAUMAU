@@ -57,8 +57,13 @@ class Game
     	$this->stack = new Stack();
     }
 
-    public function run()
+    /**
+     * Runs the logic for the entire game
+     *
+     * @return void
+     */
+    public function run(): void
     {
-
+        echo "a";
     }
 }

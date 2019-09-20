@@ -40,7 +40,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @return array
      */
-    public function all()
+    public function all(): array
     {
     	return $this->attributes;
     }
@@ -70,7 +70,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param mixed  $value The value of the parameter to set
      * @return Collection
      */
-    public function set($key, $value)
+    public function set($key, $value): object
     {
         $this->attributes[$key] = $value;
         return $this;
@@ -82,7 +82,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param string $key   The name of the parameter
      * @return boolean
      */
-    public function exists($key)
+    public function exists($key): bool
     {
         // Don't use "isset", since it returns false for null values
         return array_key_exists($key, $this->attributes);
@@ -94,9 +94,10 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param string $key   The name of the parameter
      * @return void
      */
-    public function remove($key)
+    public function remove($key): void
     {
         unset($this->attributes[$key]);
+        $this->attributes = array_values($this->attributes);
     }
 
     /**
@@ -104,7 +105,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @return Collection
      */
-    public function clear()
+    public function clear(): object
     {
     	$this->attributes = [];
         return $this;
@@ -122,7 +123,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @see \IteratorAggregate::getIterator()
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): object
     {
         return new ArrayIterator($this->attributes);
     }
@@ -137,7 +138,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param string $key   The name of the parameter to return
      * @return mixed
      */
-    public function offsetGet($key)
+    public function offsetGet($key): mixed
     {
         return $this->get($key);
     }
@@ -153,7 +154,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param mixed  $value The value of the parameter to set
      * @return void
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->set($key, $value);
     }
@@ -168,7 +169,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param string $key   The name of the parameter
      * @return boolean
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return $this->exists($key);
     }
@@ -183,7 +184,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param string $key   The name of the parameter
      * @return void
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         $this->remove($key);
     }
@@ -197,8 +198,18 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @see \Countable::count()
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->attributes);
+    }
+
+    /**
+     * Checks if attributes are set
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return (bool) $this->count();
     }
 }

@@ -31,6 +31,7 @@ class Player
      * Create a new Game instance
      *
      * @param string $name The name of this Player
+     * @return void
      */
     public function __construct($name = "Foo bar")
     {
@@ -58,9 +59,9 @@ class Player
     /**
      * Get the Hand of this player
      *
-     * @return Collection
+     * @return array
      */
-    public function getHand()
+    public function getHand(): array
     {
     	return $this->hand->all();
     }
@@ -70,7 +71,7 @@ class Player
      *
      * @return int
      */
-    public function countHand()
+    public function countHand(): int
     {
     	return $this->hand->count();
     }
@@ -81,7 +82,7 @@ class Player
      * @param Card $card a Card
      * @return void
      */
-    public function addToHand($card)
+    public function addToHand($card): void
     {
     	$this->hand->set($card->getKey(), $card);
     }
@@ -92,7 +93,7 @@ class Player
      * @param Card $card a Card
      * @return void
      */
-    public function removeFromHand($card)
+    public function removeFromHand($card): void
     {
     	$this->hand->remove($card->getKey());
     }
