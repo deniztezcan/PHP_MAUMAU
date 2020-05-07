@@ -161,7 +161,7 @@ class Game
 
                     return;
                 } else {
-                    $this->losers->set(null, $player);
+                    $this->losers->set($player->name(), $player);
                     echo $player->name().' does not have a suitable card. Deck is empty - skipping turn<br>';
 
                     return;
@@ -199,6 +199,9 @@ class Game
                         echo $player->name().' has won.';
                         $this->finished = true;
 
+                        return;
+                    } elseif ($this->finished) {
+                        
                         return;
                     }
                 }
