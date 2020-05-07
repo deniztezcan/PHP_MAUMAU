@@ -201,7 +201,6 @@ class Game
 
                         return;
                     } elseif ($this->finished) {
-                        
                         return;
                     }
                 }
